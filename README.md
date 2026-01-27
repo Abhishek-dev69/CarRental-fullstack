@@ -1,9 +1,3 @@
-Great 👍 — with the info you shared, I can already write a **professional MERN stack README.md** for your car rental project.
-
-Below is a ready-to-use README you can copy and paste into your GitHub repo 👇
-
----
-
 # 🚗 Car Rental Fullstack Web Application (MERN Stack)
 
 A full-stack car rental platform built using the **MERN stack** where car owners can list their cars for rent and users can book cars easily.
