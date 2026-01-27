@@ -100,7 +100,7 @@ npm run dev
 ## 🌐 Live Demo
 
 🔗 Live Website:
-[https://car-rental-fullstack-psi.vercel.app](https://car-rental-fullstack-psi.vercel.app)
+https://car-rental-website-eta-eight.vercel.app/
 
 ---
 
