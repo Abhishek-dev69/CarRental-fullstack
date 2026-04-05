@@ -2,10 +2,13 @@ import React from 'react'
 
 const Title = ({ title, subTitle }) => {
   return (
-    <>
-      <h1 className='font-medium text-3xl'>{title}</h1>
-      <p className='text-sm md:text-base text-gray-500/90 mt-2 max-w-156'>{subTitle}</p>
-    </>
+    <div className='space-y-3'>
+      <span className='eyebrow'>Owner Console</span>
+      <div>
+        <h1 className='text-3xl font-semibold text-slate-900 md:text-4xl'>{title}</h1>
+        <p className='mt-2 max-w-3xl text-sm leading-7 text-slate-600 md:text-base'>{subTitle}</p>
+      </div>
+    </div>
   )
 }
 

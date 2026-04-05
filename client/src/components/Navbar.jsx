@@ -1,68 +1,101 @@
 import React, { useState } from 'react'
 import { assets, menuLinks } from '../assets/assets'
-import {Link, useLocation, useNavigate} from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
-import {motion} from 'motion/react'
+import { AnimatePresence, motion as Motion } from 'motion/react'
 
 const Navbar = () => {
+  const { setShowLogin, user, logout, isOwner, axios, setIsOwner } = useAppContext()
+  const location = useLocation()
+  const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
 
-    const {setShowLogin, user, logout, isOwner, axios, setIsOwner} = useAppContext()
-
-    const location = useLocation()
-    const [open, setOpen] = useState(false)
-    const navigate = useNavigate()
-
-    const changeRole = async ()=>{
-        try {
-            const { data } = await axios.post('/api/owner/change-role')
-            if (data.success) {
-                setIsOwner(true)
-                toast.success(data.message)
-            }else{
-                toast.error(data.message)
-            }
-        } catch (error) {
-            toast.error(error.message)
-        }
+  const changeRole = async () => {
+    try {
+      const { data } = await axios.post('/api/owner/change-role')
+      if (data.success) {
+        setIsOwner(true)
+        toast.success(data.message)
+      } else {
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
+  }
 
   return (
-    <motion.div 
-    initial={{y: -20, opacity: 0}}
-    animate={{y: 0, opacity: 1}}
-    transition={{duration: 0.5}}
-    className={`flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 text-gray-600 border-b border-borderColor relative transition-all ${location.pathname === "/" && "bg-light"}`}>
+    <Motion.header initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className='section-shell sticky top-0 z-50 pt-4'>
+      <div className='section-frame'>
+        <nav className={`glass-panel relative flex items-center justify-between px-5 py-4 md:px-7 ${location.pathname === '/' ? 'bg-white/72' : 'bg-white/82'}`}>
+          <Link to='/'>
+            <Motion.img whileHover={{ scale: 1.04 }} src={assets.logo} alt="CarRental logo" className="h-9" />
+          </Link>
 
-        <Link to='/'>
-            <motion.img whileHover={{scale: 1.05}} src={assets.logo} alt="logo" className="h-8"/>
-        </Link>
-
-        <div className={`max-sm:fixed max-sm:h-screen max-sm:w-full max-sm:top-16 max-sm:border-t border-borderColor right-0 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 max-sm:p-4 transition-all duration-300 z-50 ${location.pathname === "/" ? "bg-light" : "bg-white"} ${open ? "max-sm:translate-x-0" : "max-sm:translate-x-full"}`}>
-            {menuLinks.map((link, index)=> (
-                <Link key={index} to={link.path}>
-                    {link.name}
+          <div className='hidden items-center gap-2 lg:flex'>
+            {menuLinks.map((link) => {
+              const isActive = location.pathname === link.path
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold ${isActive ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`}
+                >
+                  {link.name}
                 </Link>
-            ))}
+              )
+            })}
+          </div>
 
-            <div className='hidden lg:flex items-center text-sm gap-2 border border-borderColor px-3 rounded-full max-w-56'>
-                <input type="text" className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500" placeholder="Search cars"/>
-                <img src={assets.search_icon} alt="search" />
+          <div className='hidden items-center gap-3 lg:flex'>
+            <div className='field-shell flex min-w-60 items-center gap-2 rounded-full px-4 py-2.5'>
+              <img src={assets.search_icon} alt="" className='h-4 w-4 opacity-60' />
+              <input type="text" placeholder='Search cars' className='text-sm placeholder:text-slate-400' />
             </div>
 
-            <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
+            <button onClick={() => isOwner ? navigate('/owner') : changeRole()} className='button-secondary cursor-pointer'>
+              {isOwner ? 'Dashboard' : 'List Cars'}
+            </button>
 
-                <button onClick={()=> isOwner ? navigate('/owner') : changeRole()} className="cursor-pointer">{isOwner ? 'Dashboard' : 'List cars'}</button>
+            <button onClick={() => { user ? logout() : setShowLogin(true) }} className='button-primary cursor-pointer'>
+              {user ? 'Logout' : 'Login'}
+            </button>
+          </div>
 
-                <button onClick={()=> {user ? logout() : setShowLogin(true)}} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg">{user ? 'Logout' : 'Login'}</button>
-            </div>
-        </div>
-
-        <button className='sm:hidden cursor-pointer' aria-label="Menu" onClick={()=> setOpen(!open)}>
+          <button className='flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/90 sm:hidden' aria-label="Menu" onClick={() => setOpen(!open)}>
             <img src={open ? assets.close_icon : assets.menu_icon} alt="menu" />
-        </button>
-      
-    </motion.div>
+          </button>
+        </nav>
+      </div>
+
+      <AnimatePresence>
+        {open && (
+          <Motion.div initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} className='section-frame sm:hidden'>
+            <div className='glass-panel mt-3 flex flex-col gap-4 px-5 py-5'>
+              {menuLinks.map((link) => (
+                <Link key={link.path} to={link.path} onClick={() => setOpen(false)} className='rounded-2xl px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100'>
+                  {link.name}
+                </Link>
+              ))}
+
+              <div className='field-shell flex items-center gap-2 rounded-2xl'>
+                <img src={assets.search_icon} alt="" className='h-4 w-4 opacity-60' />
+                <input type="text" placeholder='Search cars' className='text-sm placeholder:text-slate-400' />
+              </div>
+
+              <button onClick={() => { setOpen(false); isOwner ? navigate('/owner') : changeRole() }} className='button-secondary cursor-pointer'>
+                {isOwner ? 'Dashboard' : 'List Cars'}
+              </button>
+
+              <button onClick={() => { setOpen(false); user ? logout() : setShowLogin(true) }} className='button-primary cursor-pointer'>
+                {user ? 'Logout' : 'Login'}
+              </button>
+            </div>
+          </Motion.div>
+        )}
+      </AnimatePresence>
+    </Motion.header>
   )
 }
 

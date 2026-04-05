@@ -1,108 +1,101 @@
 import React, { useEffect, useState } from 'react'
 import Title from '../components/Title'
-import { assets, dummyCarData } from '../assets/assets'
+import { assets } from '../assets/assets'
 import CarCard from '../components/CarCard'
 import { useSearchParams } from 'react-router-dom'
 import { useAppContext } from '../context/AppContext'
 import toast from 'react-hot-toast'
-import { motion } from 'motion/react'
+import { motion as Motion } from 'motion/react'
 
 const Cars = () => {
-
-  // getting search params from url
   const [searchParams] = useSearchParams()
   const pickupLocation = searchParams.get('pickupLocation')
   const pickupDate = searchParams.get('pickupDate')
   const returnDate = searchParams.get('returnDate')
 
-  const {cars, axios} = useAppContext()
+  const { cars, axios } = useAppContext()
 
   const [input, setInput] = useState('')
-
   const isSearchData = pickupLocation && pickupDate && returnDate
   const [filteredCars, setFilteredCars] = useState([])
 
-  const applyFilter = async ()=>{
-     
-    if(input === ''){
+  const applyFilter = async () => {
+    if (input === '') {
       setFilteredCars(cars)
       return null
     }
 
-    const filtered = cars.slice().filter((car)=>{
+    const filtered = cars.slice().filter((car) => {
       return car.brand.toLowerCase().includes(input.toLowerCase())
-      || car.model.toLowerCase().includes(input.toLowerCase())  
-      || car.category.toLowerCase().includes(input.toLowerCase())  
+      || car.model.toLowerCase().includes(input.toLowerCase())
+      || car.category.toLowerCase().includes(input.toLowerCase())
       || car.transmission.toLowerCase().includes(input.toLowerCase())
     })
     setFilteredCars(filtered)
   }
 
-  const searchCarAvailablity = async () =>{
-    const {data} = await axios.post('/api/bookings/check-availability', {location: pickupLocation, pickupDate, returnDate})
+  const searchCarAvailablity = async () => {
+    const { data } = await axios.post('/api/bookings/check-availability', { location: pickupLocation, pickupDate, returnDate })
     if (data.success) {
       setFilteredCars(data.availableCars)
-      if(data.availableCars.length === 0){
+      if (data.availableCars.length === 0) {
         toast('No cars available')
       }
       return null
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     isSearchData && searchCarAvailablity()
-  },[])
+  }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     cars.length > 0 && !isSearchData && applyFilter()
-  },[input, cars])
+  }, [input, cars])
 
   return (
-    <div>
+    <div className='section-shell pb-24 pt-8'>
+      <div className='section-frame'>
+        <Motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className='glass-panel rounded-[34px] px-6 py-10 md:px-10'>
+          <div className='flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between'>
+            <Title title='Available Cars' subTitle='Browse a premium lineup of vehicles and refine by model, category, or drivetrain.' align='left' />
 
-      <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+            <div className='glass-panel flex max-w-xl items-center gap-3 rounded-full px-4 py-3'>
+              <img src={assets.search_icon} alt="" className='h-4 w-4 opacity-60' />
+              <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Search by make, model, or features' className='w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400' />
+              <img src={assets.filter_icon} alt="" className='h-4 w-4 opacity-60' />
+            </div>
+          </div>
 
-      className='flex flex-col items-center py-20 bg-light max-md:px-4'>
-        <Title title='Available Cars' subTitle='Browse our selection of premium vehicles available for your next adventure'/>
+          {isSearchData && (
+            <div className='mt-6 flex flex-wrap gap-3 text-sm text-slate-500'>
+              <div className='rounded-full bg-slate-100 px-4 py-2'>Location: {pickupLocation}</div>
+              <div className='rounded-full bg-slate-100 px-4 py-2'>Pickup: {pickupDate}</div>
+              <div className='rounded-full bg-slate-100 px-4 py-2'>Return: {returnDate}</div>
+            </div>
+          )}
+        </Motion.div>
 
-        <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
+        <Motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className='mt-10'>
+          <div className='flex items-center justify-between gap-4'>
+            <p className='text-sm font-medium uppercase tracking-[0.16em] text-slate-500'>Showing {filteredCars.length} cars</p>
+          </div>
 
-        className='flex items-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow'>
-          <img src={assets.search_icon} alt="" className='w-4.5 h-4.5 mr-2'/>
-
-          <input onChange={(e)=> setInput(e.target.value)} value={input} type="text" placeholder='Search by make, model, or features' className='w-full h-full outline-none text-gray-500'/>
-
-          <img src={assets.filter_icon} alt="" className='w-4.5 h-4.5 ml-2'/>
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-
-      className='px-6 md:px-16 lg:px-24 xl:px-32 mt-10'>
-        <p className='text-gray-500 xl:px-20 max-w-7xl mx-auto'>Showing {filteredCars.length} Cars</p>
-
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto'>
-          {filteredCars.map((car, index)=> (
-            <motion.div key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 * index, duration: 0.4 }}
-            >
-              <CarCard car={car}/>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
+          {filteredCars.length > 0 ? (
+            <div className='mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
+              {filteredCars.map((car, index) => (
+                <Motion.div key={car._id || index} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.06 * index, duration: 0.35 }}>
+                  <CarCard car={car} />
+                </Motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className='luxury-card mt-6 rounded-[30px] px-6 py-10 text-center text-slate-500'>
+              No matching vehicles found for the current filter.
+            </div>
+          )}
+        </Motion.div>
+      </div>
     </div>
   )
 }
