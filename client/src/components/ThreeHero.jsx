@@ -630,15 +630,16 @@ const ThreeHero = () => {
   }, [])
 
   return (
-    <div className='relative flex min-h-[420px] w-full items-center justify-center overflow-hidden rounded-[8px] bg-[#f5f5f7] md:min-h-[500px]'>
-      <div className='pointer-events-none absolute inset-x-10 top-8 h-16 bg-white/70 blur-2xl' />
+    <div className='relative flex min-h-[380px] w-full items-center justify-center overflow-hidden rounded-[34px] border border-white/50 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.92),rgba(236,243,255,0.68)_46%,rgba(175,210,255,0.24)_100%)] p-4 shadow-[0_28px_70px_rgba(8,17,33,0.14)] md:min-h-[430px]'>
+      <div className='pointer-events-none absolute inset-x-8 top-8 h-24 rounded-full bg-white/70 blur-3xl' />
+      <div className='pointer-events-none absolute -bottom-12 left-1/2 h-32 w-[78%] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl' />
       <div ref={mountRef} className='absolute inset-0' aria-hidden='true' />
       <img
         src={assets.main_car}
         alt='Featured premium car'
         className={`relative z-10 w-full max-w-xl transition-opacity duration-500 ${isReady ? 'opacity-0' : 'opacity-100'}`}
       />
-      <div className='pointer-events-none absolute bottom-5 left-5 rounded-full bg-white px-4 py-2 text-[11px] font-semibold tracking-[-0.12px] text-black/48 shadow-sm'>
+      <div className='pointer-events-none absolute bottom-5 left-5 rounded-full border border-white/70 bg-white/88 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-500 backdrop-blur-md'>
         Studio 3D Concept View
       </div>
     </div>

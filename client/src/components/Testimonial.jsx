@@ -26,7 +26,7 @@ const Testimonial = () => {
   ]
 
   return (
-    <section className="section-shell apple-section-light py-28">
+    <section className="section-shell py-28">
       <div className='section-frame'>
         <Title title="Trusted by Indian renters" subTitle="From airport pickups to weekend drives and work travel, users should understand the booking flow quickly and feel confident before they reserve." />
 
@@ -40,10 +40,10 @@ const Testimonial = () => {
               className="luxury-card p-7"
             >
               <div className="flex items-center gap-4">
-                <img className="h-14 w-14 rounded-[8px] object-cover" src={testimonial.image} alt={testimonial.name} />
+                <img className="h-14 w-14 rounded-2xl object-cover" src={testimonial.image} alt={testimonial.name} />
                 <div>
-                  <p className="text-[21px] font-semibold leading-[1.19] tracking-[0.231px] text-[#1d1d1f]">{testimonial.name}</p>
-                  <p className="apple-caption text-black/48">{testimonial.location}</p>
+                  <p className="text-lg font-semibold text-slate-900">{testimonial.name}</p>
+                  <p className="text-sm text-slate-500">{testimonial.location}</p>
                 </div>
               </div>
 
@@ -53,7 +53,7 @@ const Testimonial = () => {
                 ))}
               </div>
 
-              <p className="apple-body mt-5 text-black/80">"{testimonial.testimonial}"</p>
+              <p className="mt-5 text-base leading-8 text-slate-600">"{testimonial.testimonial}"</p>
             </Motion.div>
           ))}
         </div>
