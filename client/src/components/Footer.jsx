@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className='section-shell pb-10'>
+    <footer className='section-shell bg-white pb-10'>
       <div className='section-frame'>
-        <Motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} className='glass-panel rounded-[36px] px-6 py-10 text-sm text-slate-500 md:px-10'>
-          <div className='grid gap-10 border-b border-slate-200/80 pb-8 lg:grid-cols-[1.1fr_1fr]'>
+        <Motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} className='border-t border-black/10 px-0 py-10 text-sm text-black/48'>
+          <div className='grid gap-10 border-b border-black/10 pb-8 lg:grid-cols-[1.1fr_1fr]'>
             <div>
               <img src={assets.logo} alt="CarRental logo" className='h-9' />
-              <p className='mt-4 max-w-md text-base leading-8 text-slate-600'>
+              <p className='apple-body mt-4 max-w-md text-black/80'>
                 Premium car rental service for Indian cities, built to make search, comparison, and booking feel faster, clearer, and more trustworthy.
               </p>
               <div className='mt-6 flex items-center gap-3'>
@@ -24,7 +24,7 @@ const Footer = () => {
 
             <div className='grid gap-8 sm:grid-cols-3'>
               <div>
-                <h2 className='text-base font-semibold uppercase tracking-[0.16em] text-slate-800'>Quick Links</h2>
+                <h2 className='apple-caption font-semibold text-[#1d1d1f]'>Quick Links</h2>
                 <ul className='mt-4 flex flex-col gap-2.5'>
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/cars">Browse Cars</Link></li>
@@ -34,7 +34,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h2 className='text-base font-semibold uppercase tracking-[0.16em] text-slate-800'>Resources</h2>
+                <h2 className='apple-caption font-semibold text-[#1d1d1f]'>Resources</h2>
                 <ul className='mt-4 flex flex-col gap-2.5'>
                   <li><a href="#">Help Center</a></li>
                   <li><a href="#">Terms of Service</a></li>
@@ -44,7 +44,7 @@ const Footer = () => {
               </div>
 
               <div>
-                <h2 className='text-base font-semibold uppercase tracking-[0.16em] text-slate-800'>Contact</h2>
+                <h2 className='apple-caption font-semibold text-[#1d1d1f]'>Contact</h2>
                 <ul className='mt-4 flex flex-col gap-2.5'>
                   <li>Indiranagar Mobility Hub</li>
                   <li>Bengaluru, Karnataka 560038</li>
@@ -55,7 +55,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className='flex flex-col items-center justify-between gap-3 pt-5 md:flex-row'>
+          <div className='apple-caption flex flex-col items-center justify-between gap-3 pt-5 md:flex-row'>
             <p>© {new Date().getFullYear()} Brand. All rights reserved.</p>
             <div className='flex items-center gap-4'>
               <a href="#">Privacy</a>
