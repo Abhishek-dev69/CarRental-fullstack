@@ -7,6 +7,12 @@ import ThreeHero from './ThreeHero'
 const Hero = () => {
   const [pickupLocation, setPickupLocation] = useState('')
   const { pickupDate, setPickupDate, returnDate, setReturnDate, navigate } = useAppContext()
+  const popularCities = cityList.slice(0, 6)
+  const bookingSteps = [
+    { title: 'Choose your city', description: 'Start with the pickup city where you want to collect the car.' },
+    { title: 'Select your dates', description: 'Add trip dates to instantly see cars available for that schedule.' },
+    { title: 'Book with clarity', description: 'Compare price, transmission, fuel type, and seats before confirming.' },
+  ]
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -22,18 +28,34 @@ const Hero = () => {
 
           <div className='grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]'>
             <Motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className='relative z-10'>
-              <span className='eyebrow'>Premium Mobility</span>
+              <span className='eyebrow'>Built For Indian Travel</span>
               <h1 className='mt-6 max-w-2xl text-5xl font-semibold leading-[1.02] text-slate-950 md:text-6xl'>
-                Rent exceptional cars with a luxury-first digital experience.
+                Self-drive and chauffeur-ready rentals across India, without the usual confusion.
               </h1>
               <p className='mt-5 max-w-xl text-base leading-8 text-slate-600 md:text-lg'>
-                Discover refined vehicles, faster bookings, and a smoother journey from search to pickup.
+                Search by city, compare verified car details, and book faster for airport pickups, business trips, weekend drives, and family travel.
               </p>
 
               <div className='mt-8 flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-600'>
-                <div className='rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm'>Instant availability checks</div>
-                <div className='rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm'>Premium, SUV, and city-ready cars</div>
-                <div className='rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm'>Responsive on every device</div>
+                <div className='rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm'>Instant city-based availability</div>
+                <div className='rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm'>SUVs, sedans, and premium options</div>
+                <div className='rounded-full border border-white/80 bg-white/75 px-4 py-2 shadow-sm'>Clear, mobile-friendly booking flow</div>
+              </div>
+
+              <div className='mt-8'>
+                <p className='text-xs font-semibold uppercase tracking-[0.18em] text-slate-400'>Popular pickup cities</p>
+                <div className='mt-3 flex flex-wrap gap-2.5'>
+                  {popularCities.map((city) => (
+                    <button
+                      key={city}
+                      type='button'
+                      onClick={() => setPickupLocation(city)}
+                      className={`rounded-full px-4 py-2 text-sm font-semibold cursor-pointer ${pickupLocation === city ? 'bg-slate-900 text-white shadow-[0_14px_30px_rgba(15,23,42,0.18)]' : 'border border-white/80 bg-white/80 text-slate-600 shadow-sm hover:bg-white'}`}
+                    >
+                      {city}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <Motion.form
@@ -45,9 +67,9 @@ const Hero = () => {
               >
                 <div className='grid gap-3 md:grid-cols-3'>
                   <label className='field-shell flex flex-col gap-2'>
-                    <span className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>Location</span>
+                    <span className='text-xs font-semibold uppercase tracking-[0.2em] text-slate-500'>Pickup City</span>
                     <select required value={pickupLocation} onChange={(e)=>setPickupLocation(e.target.value)}>
-                      <option value="">Pickup Location</option>
+                      <option value="">Select a city</option>
                       {cityList.map((city)=> <option key={city} value={city}>{city}</option>)}
                     </select>
                   </label>
@@ -64,9 +86,10 @@ const Hero = () => {
                 </div>
 
                 <div className='flex flex-col items-start justify-between gap-4 md:flex-row md:items-center'>
-                  <p className='pl-1 text-sm text-slate-500'>
-                    {pickupLocation ? `Pickup in ${pickupLocation}` : 'Choose a city and travel dates to explore the fleet.'}
-                  </p>
+                  <div className='pl-1 text-sm text-slate-500'>
+                    <p>{pickupLocation ? `Showing options for ${pickupLocation}` : 'Choose your city and travel dates to see the available fleet.'}</p>
+                    <p className='mt-1 text-xs text-slate-400'>Best for airport transfers, outstation weekends, city commutes, and family travel.</p>
+                  </div>
 
                   <Motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className='button-primary w-full cursor-pointer md:w-auto'>
                     <img src={assets.search_icon} alt="search" className='brightness-300' />
@@ -74,6 +97,16 @@ const Hero = () => {
                   </Motion.button>
                 </div>
               </Motion.form>
+
+              <div className='mt-8 grid gap-3 sm:grid-cols-3'>
+                {bookingSteps.map((step, index) => (
+                  <div key={step.title} className='rounded-[24px] border border-white/70 bg-white/72 p-4 shadow-sm backdrop-blur-md'>
+                    <p className='text-xs font-semibold uppercase tracking-[0.2em] text-primary'>Step {index + 1}</p>
+                    <h3 className='mt-2 text-lg font-semibold text-slate-900'>{step.title}</h3>
+                    <p className='mt-2 text-sm leading-6 text-slate-500'>{step.description}</p>
+                  </div>
+                ))}
+              </div>
             </Motion.div>
 
             <Motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.18 }} className='relative z-10'>

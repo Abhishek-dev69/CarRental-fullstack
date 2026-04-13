@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Title from '../../components/owner/Title'
-import { assets } from '../../assets/assets'
+import { assets, cityList } from '../../assets/assets'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
 
@@ -143,10 +143,9 @@ const AddCar = () => {
           <span className='text-xs font-semibold uppercase tracking-[0.18em] text-slate-500'>Location</span>
           <select onChange={e => setCar({ ...car, location: e.target.value })} value={car.location}>
             <option value="">Select a location</option>
-            <option value="New York">New York</option>
-            <option value="Los Angeles">Los Angeles</option>
-            <option value="Houston">Houston</option>
-            <option value="Chicago">Chicago</option>
+            {cityList.map((city) => (
+              <option key={city} value={city}>{city}</option>
+            ))}
           </select>
         </label>
 

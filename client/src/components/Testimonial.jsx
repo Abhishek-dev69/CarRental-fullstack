@@ -6,29 +6,29 @@ import { motion as Motion } from 'motion/react'
 const Testimonial = () => {
   const testimonials = [
     {
-      name: "Emma Rodriguez",
-      location: "Barcelona, Spain",
+      name: "Riya Mehta",
+      location: "Mumbai, Maharashtra",
       image: assets.testimonial_image_1,
-      testimonial: "I've rented cars from various companies, but the experience with CarRental was exceptional."
+      testimonial: "The booking flow was clear from the start, and I found a clean SUV for my family trip without having to call three different vendors."
     },
     {
-      name: "John Smith",
-      location: "New York, USA",
+      name: "Arjun Nair",
+      location: "Bengaluru, Karnataka",
       image: assets.testimonial_image_2,
-      testimonial: "CarRental made my trip so much easier. The car was delivered right to my door, and the customer service was fantastic!"
+      testimonial: "What stood out was how easy it was to compare cars, pickup dates, and features on mobile. It felt modern and straightforward."
     },
     {
-      name: "Ava Johnson",
-      location: "Sydney, Australia",
+      name: "Sneha Kapoor",
+      location: "Delhi NCR",
       image: assets.testimonial_image_1,
-      testimonial: "I highly recommend CarRental! Their fleet is amazing, and I always feel like I'm getting the best deal with excellent service."
+      testimonial: "I used it for an airport pickup and the experience felt much more premium than the usual rental sites. Fast search, clear details, and no guessing."
     }
   ]
 
   return (
     <section className="section-shell py-28">
       <div className='section-frame'>
-        <Title title="Trusted by modern travelers" subTitle="The platform should feel as polished as the vehicles it offers, so every interaction reinforces speed, trust, and premium service." />
+        <Title title="Trusted by Indian renters" subTitle="From airport pickups to weekend drives and work travel, users should understand the booking flow quickly and feel confident before they reserve." />
 
         <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (

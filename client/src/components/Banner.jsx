@@ -13,21 +13,21 @@ const Banner = () => {
           <div className='grid items-center gap-8 md:grid-cols-[1fr_0.8fr]'>
             <div className='relative z-10 text-white'>
               <span className='inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-100'>
-                Owner Opportunity
+                India Owner Network
               </span>
-              <h2 className='mt-6 text-3xl font-semibold md:text-4xl'>Turn idle inventory into a premium revenue stream.</h2>
+              <h2 className='mt-6 text-3xl font-semibold md:text-4xl'>List your car in high-demand Indian cities and earn from every idle day.</h2>
               <p className='mt-4 max-w-2xl text-base leading-8 text-slate-300'>
-                List your car on a platform designed for trust, polished presentation, and seamless booking workflows.
+                Build an additional income stream with a cleaner dashboard, clearer booking management, and a more premium showcase for your fleet.
               </p>
 
               <div className='mt-8 flex flex-wrap gap-4 text-sm text-slate-200'>
-                <div className='rounded-2xl border border-white/10 bg-white/5 px-4 py-3'>Verified bookings</div>
+                <div className='rounded-2xl border border-white/10 bg-white/5 px-4 py-3'>Suitable for city and outstation demand</div>
                 <div className='rounded-2xl border border-white/10 bg-white/5 px-4 py-3'>Owner dashboard included</div>
-                <div className='rounded-2xl border border-white/10 bg-white/5 px-4 py-3'>Availability controls</div>
+                <div className='rounded-2xl border border-white/10 bg-white/5 px-4 py-3'>Availability and booking controls</div>
               </div>
 
               <Motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} className='mt-8 inline-flex cursor-pointer items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900'>
-                List your car
+                Start listing
               </Motion.button>
             </div>
 

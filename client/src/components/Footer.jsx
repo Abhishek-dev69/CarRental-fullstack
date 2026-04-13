@@ -12,7 +12,7 @@ const Footer = () => {
             <div>
               <img src={assets.logo} alt="CarRental logo" className='h-9' />
               <p className='mt-4 max-w-md text-base leading-8 text-slate-600'>
-                Premium car rental service with a visual experience that feels fast, trustworthy, and elevated from the first click to the final booking.
+                Premium car rental service for Indian cities, built to make search, comparison, and booking feel faster, clearer, and more trustworthy.
               </p>
               <div className='mt-6 flex items-center gap-3'>
                 <a href="#"><img src={assets.facebook_logo} className='h-5 w-5' alt="Facebook" /></a>
@@ -46,10 +46,10 @@ const Footer = () => {
               <div>
                 <h2 className='text-base font-semibold uppercase tracking-[0.16em] text-slate-800'>Contact</h2>
                 <ul className='mt-4 flex flex-col gap-2.5'>
-                  <li>1234 Luxury Drive</li>
-                  <li>San Francisco, CA 94107</li>
-                  <li>+1 234 567890</li>
-                  <li>info@example.com</li>
+                  <li>Indiranagar Mobility Hub</li>
+                  <li>Bengaluru, Karnataka 560038</li>
+                  <li>+91 80 4567 8900</li>
+                  <li>hello@carrental.in</li>
                 </ul>
               </div>
             </div>
